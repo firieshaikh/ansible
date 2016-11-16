@@ -13,8 +13,8 @@
   file: path={{ doc_root }} state=directory owner=www-data group=www-data
 
 - name: Copy html file
-  copy: src=files/index.html dest={{ doc_root }}/index.html owner=www-data group=www-data mode=0644
+  copy: src=index.html dest={{ doc_root }}/index.html owner=www-data group=www-data mode=0644
 
 - name: Setup virtual host template
-  template: src=templates/vhost.j2 dest=/etc/apache2/sites-available/000-default.conf
+  template: src=vhost.j2 dest=/etc/apache2/sites-available/000-default.conf
   notify: restart apache
