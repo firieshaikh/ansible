@@ -1,0 +1,20 @@
+---
+- name: Update apt cache
+  apt: update_cache=yes
+
+- name: Install base packages
+  apt: name={{ item }} state=latest
+  with_items: "{{ packages }}"
+
+- name: Install apache
+  apt: name=apache2 state=latest
+
+- name: Custom document root
+  file: path={{ doc_root }} state=directory owner=www-data group=www-data
+
+- name: Copy html file
+  copy: src=files/index.html dest={{ doc_root }}/index.html owner=www-data group=www-data mode=0644
+
+- name: Setup virtual host template
+  template: src=templates/vhost.j2 dest=/etc/apache2/sites-available/000-default.conf
+  notify: restart apache

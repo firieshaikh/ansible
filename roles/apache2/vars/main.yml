@@ -1,0 +1,4 @@
+---
+# defaults file for apache2
+doc_root: /var/www/example
+packages: ['git', 'curl', 'elinks']
